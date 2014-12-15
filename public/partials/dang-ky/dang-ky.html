@@ -1,0 +1,20 @@
+<div class="container" style="width: 350px;">
+	<h1>Dang ky thanh vien</h1>
+	<div class="form-group">
+          <label for="lblemail">Email :</label>
+          <input type="email" ng-model="Email" class="form-control"  placeholder="Enter email">
+          <span class="error" ng-model="errorEmail"></span>
+        </div>
+	<div class="form-group">
+          <label for="pwd">Mat khau :</label>
+          <input type="password" ng-model="matkhau" class="form-control" placeholder="Enter password">
+          <span class="error" ng-model="errorMatKhau"></span>
+        </div>
+  <div class="form-group">
+          <label for="pwd">Nhap lai mat khau :</label>
+          <input type="password" ng-model="NhapLaiMatKhau" class="form-control" id="pwd" placeholder=" Re Enter password">
+          <span class="error" ng-model="errorNhapLaiMatKhau"></span>
+        </div>
+	<button class="btn btn-default" ng-click='dangky()'>Dang ky</button>&nbsp;&nbsp;
+	<button class="btn btn-default" ng-click='huybo()'>Huy bo</button>
+</div>

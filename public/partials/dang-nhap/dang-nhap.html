@@ -1,0 +1,18 @@
+<div class="container" style="width: 250px;">
+
+	<h1>Login</h1>
+	<div class="form-group">
+          <label for="email">Email :</label>
+          <input type="email" ng-model="email" class="form-control" placeholder="Enter email">
+        </div>
+	<div class="form-group">
+          <label for="pwd">Mat khau :</label>
+          <input type="password" ng-model="password" class="form-control" placeholder="Enter password">
+        </div>
+    <div class="checkbox">
+          <label><input type="checkbox"> Remember me</label>
+        </div>
+	<button class="btn btn-default" ng-click='dangnhap()'>Dang nhap</button>&nbsp;&nbsp;
+	<button class="btn btn-default" ng-click='huybo()'>Huy bo</button>
+	 <span>{{result}}</span>
+</div>

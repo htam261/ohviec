@@ -1,0 +1,51 @@
+
+
+<div class="timeline-wrapper">
+<div infinite-scroll='loadMore()' infinite-scroll-disabled='dangTai' infinite-scroll-distance='1' >
+	<div  ng-repeat="item in jobs | orderBy:['-createdAt']" ng-mouseenter="showMore=true"  ng-mouseleave="showMore=false" class="phone-listing">		
+	<div class="timeline-item">
+		<div class="timeline-info">
+			<div class="timeline-icon bg-success">
+				<i class="fa fa-file-text-o"></i>
+			</div>
+			<div class="time">
+				{{item.timeBetween}}
+			</div>
+		</div>
+		<div class="panel panel-default timeline-panel">
+
+				
+
+			<div class="panel-body">
+
+				<h2 style="margin-top:0px; font-size:18px;"><a href="#/viec-lam/{{item.linkTitle}}/{{item.id}}"   >
+						{{item.title}}
+				</a></h2>
+				<p>
+					<ul class="list-relation-top">
+						<li>
+							<span class="relation"><a class="ng-binding" href=""><i class="fa fa-user"></i>Đăng bởi: {{item.userFullname}}</a></span>
+						</li>
+			
+						<li>
+							<span class="relation"><a class="ng-binding" href=""><i class="fa fa-map-marker"></i>tại {{item.provinceName}}</a></span>
+						</li>
+						<li>
+							<span class="relation"><a class="ng-binding" href=""><i class="fa fa-folder"></i>Lĩnh vực: Giao nhận</a></span>
+						</li>
+						<li>
+							<span class="relation"><a href=""><i class="fa fa-usd"></i><strong class="ng-binding">Lương: {{item.salary}}</strong></a></span>
+						</li>
+				
+					</ul>
+				</p>
+				<div class="seperator"></div>
+			</div>
+		</div><!-- /panel -->
+	</div><!-- /timeline-item -->
+	</div>
+	<div style="text-align:center; height:80px; padding-top:5px;" >
+			<p ng-show='dangTai' class="sample-show-hide2"> <i class="fa fa-5x fa-spinner fa-spin"></i></p>
+		</div>			
+</div>
+</div>

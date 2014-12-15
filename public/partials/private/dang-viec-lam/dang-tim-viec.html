@@ -1,0 +1,113 @@
+<div class="container" ng-hide="authending"> <!-- Không hiện khi đang kiểm tra đăng nhập -->
+  <div class="row">
+    <div class="col-sm-6 col-md-6">
+      <div class="well"> 
+       <form class="form-horizontal" novalidate name="postJob_form" ng-submit="postJob()">
+         <!--  <h4>Đăng việc làm bán thời gian</h4> -->
+         <div class="form-group" style="padding:0px 14px 0px 14px;margin-top:10px;">
+          <input ng-model="title" name="title" type="text" placeholder="Tiêu đề" class="form-control input-md" required ng-trim="true" >
+          <div class="error" ng-show="postJob_form.title.$dirty && postJob_form.title.$invalid">
+            <small class="error" ng-show="postJob_form.title.$error.required">
+              Bạn hãy nhập đủ tiêu đề.
+            </small>
+          </div>
+        </div>
+
+        <div class="form-group" style="padding:0px 14px 0px 14px;">
+          <textarea  placeholder="Mô tả công việc" class="form-control" id="jobDescription" ng-model="jobDescription" name="jobDescription" rows="5" required ng-trim="true">{{jobDescription}}</textarea>
+          <div class="error" 
+          ng-show="postJob_form.jobDescription.$dirty && postJob_form.jobDescription.$invalid">
+          <small class="error" 
+          ng-show="postJob_form.jobDescription.$error.required">
+          Bạn hãy nhập mô tả công việc.
+        </small>
+    </div>
+  </div>
+  <div class="form-group" style="padding:0px 14px 0px 14px;">
+    <textarea  placeholder="Mô tả thời gian" class="form-control" id="timeDescription" ng-model="timeDescription" name="timeDescription" rows="2" ng-trim="true" required>{{timeDescription}}</textarea>
+    <div class="error" 
+    ng-show="postJob_form.timeDescription.$dirty && postJob_form.timeDescription.$invalid">
+    <small class="error" 
+    ng-show="postJob_form.timeDescription.$error.required">
+    Bạn hãy nhập mô tả thời gian.
+  </small>
+
+</div>
+</div>
+  <div class="form-group" style="padding:0px 14px 0px 14px;">
+    <select ui-select2 id="province" ng-model="province" data-placeholder="Chọn khu vực làm việc" style="width:100%;" ng-required="true" ng-change="validateProfessProvinces('kv')">
+      <option value=""></option>
+      <option ng-repeat="province in provinces| orderBy:['priority','name']" value="{{province.id}}">{{province.name}}</option>
+    </select>
+    <div class="error" ng-show="provinceErrorr">
+      Bạn phải chọn khu vực
+    </div>
+  </div>
+    <div class="form-group" style="padding:0px 14px 0px 14px;">
+    <select ui-select2 id="profession" ng-model="profession" data-placeholder="Chọn lĩnh vực" style="width:100%;" ng-required="true" ng-change="validateProfessProvinces('lv')">
+      <option value=""></option>
+      <option ng-repeat="profession in professions| orderBy:['priority','professionName']" value="{{profession.id}}">{{profession.professionName}}</option>
+    </select>
+    <div class="error" ng-show="provinceError">
+      Bạn phải chọn lĩnh vực
+    </div>
+  </div>
+<div class="form-group" style="padding:0px 14px 0px 14px;" ng-show="postJob_form.$invalid">
+  <label style="display:block;color:#b94a48;">Bạn vui lòng nhập đầy đủ thông tin</label>
+</div>
+
+<div class="form-group" style="padding:0px 14px 0px 0px;">
+  <button type="submit" id="submit" name="submitJob" class="btn btn-success btn-lg pull-right" ng-disabled="postJob_form.$invalid || dangDang" ng-model="submitJob"> ĐĂNG TÌM VIỆC<i class="fa fa-spinner fa-spin" ng-show="dangDang"></i></button>
+</div>
+</form>
+</div>
+</div>
+<div  class="col-sm-6 col-md-6">
+  <div class="alert alert-info alert-dismissable">
+  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+  <strong>Thông tin tìm việc bán thời gian của bạn sẽ được hiển thị như bên dưới khi bạn điền thông tin</strong> 
+</div>
+    <div class="panel panel-default" ng-show="province ||postJob_form.title.$valid|| profession || expri||postJob_form.timeDescription.$valid || postJob_form.jobDescription.$valid || postJob_form.adress.$valid">
+    <div class="x-panel-heading">
+    </div>
+    <div class="panel-body">
+      <h3 class="post-title"><a href="#/viec-lam/{{item.linkTitle}}/{{item.id}}" >{{title|limitTo: 200}} <span ng-show="title.length>200">...</span></a> <br/>
+      </h3>
+      <div class="post-content">
+        <div >
+          <img class="post-img" ng-src="{{currentUser.avatar}}" alt="bootsnipp"
+          />
+          <h1 class="user-name"> <a  href="#/nguoi-dung/{{item.userId}}">{{currentUser.fullname}}</a></h1>
+          <ul class="list-relation-top" >
+            <!-- <li>
+              <span class="relation" ng-show="newExpri.length>0"><a href=""><i class="fa fa-clock-o"></i> {{newExpri}}</a></span>
+            </li> -->
+            <li>
+              <span class="relation"><a href=""><strong><i class="fa fa-map-marker"></i> Khu vực</strong> {{newProvince}}</a></span>
+            </li>
+            <li ng-show="newProfession.length>0">
+              <span class="relation"><a href=""><strong><i class="fa fa-folder"></i> Lĩnh vực</strong> {{newProfession}}</a></span>
+            </li>
+            </ul>
+
+          </div>
+          <div class="clearfix"></div>
+          <p ng-show="postJob_form.jobDescription.$valid">
+           {{jobDescription}}
+          </p>          
+          <p ng-show="postJob_form.timeDescription.$valid">
+            <strong>Thời gian: </strong>{{timeDescription}}
+          </p>
+          <p ng-show="postJob_form.adress.$valid">
+            <strong>Liên hệ: </strong>{{adress}}
+          </p>
+
+        </div>
+        <div class="clearfix"></div>
+
+      </div>
+    </div>
+<!-- ======================== -->
+</div>
+</div>
+</div>

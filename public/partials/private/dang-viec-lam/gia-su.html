@@ -1,0 +1,150 @@
+<style type="text/css">
+.fixDestiption{
+	margin-top: 14px;
+}
+@media (max-width: 768px) {
+	.fixDestiption{
+	margin-top: 0px;
+}
+.fixBoderPhone{
+	border-top: 0px;
+}
+}
+</style>
+<div class="container" ng-show="authending"> <!-- Hiển thị loading khi đang kiểm tra -->
+  <div class="jumbotron" style="text-align:center;border-radius:0px;">
+    <i class="fa fa-5x fa-spinner fa-spin"></i>
+    <h3>Đang tải . . .</h3>
+  </div>
+</div>
+<div class="container" ng-hide="authending"> <!-- Không hiện khi đang kiểm tra đăng nhập -->
+  <div class="row">
+    <div class="col-sm-6 col-md-6">
+      <div class="well"> 
+       <form class="form-horizontal" novalidate name="postJob_form" ng-submit="postJob()">
+         <!--  <h4>Đăng việc làm bán thời gian</h4> -->
+         <div class="pull-right" style="margin-bottom:10px;">
+         	<a href="#" ui-sref="trangChu.dangViecLam-khac" data-toggle="tooltip" data-placement="top" title="Đăng việc với form khác">Đăng khác</a>
+         </div>
+         <div class="form-group" style="padding:0px 14px 0px 14px;margin-top:10px;">
+          <input ng-model="title" name="title" type="text" placeholder="Tiêu đề" class="form-control input-md" required ng-trim="true" >
+          <div class="error" ng-show="postJob_form.title.$dirty && postJob_form.title.$invalid">
+            <small class="error" ng-show="postJob_form.title.$error.required">
+              Bạn hãy nhập đủ tiêu đề.
+            </small>
+          </div>
+        </div>
+
+  <div class="form-group" style="padding:0px 14px 0px 14px;">
+  	<div class="row">
+  		<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+  			<input ng-model="lop" name="lop" type="text" placeholder="Lớp dạy(Vd: 12)" class="form-control input-md" required ng-trim="true" >
+          <div class="error" ng-show="postJob_form.lop.$dirty && postJob_form.lop.$invalid">
+            <small class="error" ng-show="postJob_form.lop.$error.required">
+              Bạn hãy nhập lớp dạy. Vd: 12
+            </small>
+          </div>
+  		</div>
+  		<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+  			<input ng-model="mon" name="mon" type="text" placeholder="Môn dạy(Vd: Toán, Lý)" class="form-control input-md fixBoderPhone" required ng-trim="true" >
+          <div class="error" ng-show="postJob_form.mon.$dirty && postJob_form.mon.$invalid">
+            <small class="error" ng-show="postJob_form.mon.$error.required">
+              Bạn hãy nhập môn dạy. Vd: Toán, Lý
+            </small>
+          </div>
+  		</div>
+  	</div>
+  	<div class="row fixDestiption">
+  		<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+  			<input ng-model="thoiGian" name="thoiGian" type="text" placeholder="Thời gian(Vd: T2, 4, 6 Tối 6h30 - 8h)" class="form-control input-md fixBoderPhone" required ng-trim="true" >
+          <div class="error" ng-show="postJob_form.thoiGian.$dirty && postJob_form.thoiGian.$invalid">
+            <small class="error" ng-show="postJob_form.thoiGian.$error.required">
+              Bạn hãy nhập thời gian. Vd: T2, 4, 6 Tối 6h30 - 8h 
+            </small>
+          </div>
+  		</div>
+  		<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+  			<input ng-model="yeuCau" name="yeuCau" type="text" placeholder="Yêu cầu(Vd:Nữ)" class="form-control input-md fixBoderPhone" required ng-trim="true" >
+          <div class="error" ng-show="postJob_form.yeuCau.$dirty && postJob_form.yeuCau.$invalid">
+            <small class="error" ng-show="postJob_form.yeuCau.$error.required">
+              Bạn hãy nhập yêu cầu. Vd: nữ
+            </small>
+          </div>
+  		</div>
+  	</div>
+</div>
+<div class="form-group" style="padding:0px 14px 0px 14px;">
+  <input ng-model="adress" name="adress" type="text" placeholder="Địa chỉ, liên hệ dạy" class="form-control input-md" required ng-trim="true" >
+  <div class="error" ng-show="postJob_form.adress.$dirty && postJob_form.adress.$invalid">
+    <small class="error" ng-show="postJob_form.adress.$error.required">
+      Bạn hãy nhập địa chỉ, liên hệ dạy.
+    </small>
+  </div>
+</div>
+<!--   <div class="form-group" style="padding:0px 14px 0px 14px;font-size:12px;">
+    <div id="timeToDo">
+      <strong> {{hours}} </strong> giờ/ngày
+      <div class="hours" ui-slider min="1" max="24" ng-model="hours" style="margin-top:5px;"></div>
+    </div>
+  </div> -->
+
+  <div class="form-group" style="padding:0px 14px 0px 14px;font-size:12px;">
+    <div>
+      <label class="radio-inline" for="radios-01">
+        <input type="radio" name="salaryType" id="radios-01" value="salaryHour" ng-model="salaryType" ng-change="salaryTypeChange(salaryType)">
+        Lương theo giờ
+      </label> 
+      <label class="radio-inline" for="radios-11">
+        <input type="radio" name="salaryType" id="radios-11" value="salaryDay" ng-model="salaryType" ng-change="salaryTypeChange(salaryType)">
+        Lương theo ngày
+      </label>
+      <label class="radio-inline" for="radios-111">
+        <input type="radio" name="salaryType" id="radios-111" value="salaryMonth" ng-model="salaryType" ng-change="salaryTypeChange(salaryType)">
+        Lương theo tháng
+      </label>
+      <label class="radio-inline" for="radios-1112">
+        <input type="radio" name="salaryType" id="radios-1112" value="salaryNegotiated" ng-model="salaryType" ng-change="salaryTypeChange(salaryType)">
+        Thỏa thuận
+      </label>
+
+    </div>
+    <div style="margin-top:5px;" ng-show="salarySlider">
+      <strong> {{salary}}</strong>{{donvi}}
+      <div class="hours" ui-slider min="{{salaryMin}}" max="{{salaryMax}}" step="{{salaryStep}}" ng-model="salary" style="margin-top:5px;border-radius:0px;"></div>
+    </div>
+  </div>
+  <div class="form-group" style="padding:0px 14px 0px 14px;">
+    <select ui-select2 id="province" ng-model="province" data-placeholder="Chọn khu vực làm việc" style="width:100%;" ng-required="true" ng-change="validateProfessProvinces('kv')">
+      <option value=""></option>
+      <option ng-repeat="province in provinces| orderBy:['priority','name']" value="{{province.id}}">{{province.name}}</option>
+    </select>
+    <div class="error" ng-show="provinceErrorr">
+      Bạn phải chọn khu vực
+    </div>
+  </div>
+
+  <div class="form-group" style="padding:0px 14px 0px 14px;">
+    <p class="input-group">
+     <!--/^(([0-2]?\d{1})|([3][0,1]{1}))\/[0,1]?\d{1}\/(([1]{1}[9]{1}[9]{1}\d{1})|([2-9]{1}\d{3}))$/-->
+     <input placeholder="Hạn nhận việc" type="text" class="form-control" datepicker-popup="{{format}}" ng-model="expri" is-open="opened" min="minDate" max="'27/01/2020'" datepicker-options="dateOptions" name="exp" date-disabled="disabled(date, mode)" required close-text="Đóng" readonly='readonly' ng-change="expValidate(expri)" />
+     <span class="input-group-btn">
+      <button class="btn btn-primary" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+    </span>
+  </p>
+</div>
+<div class="form-group" style="padding:0px 14px 0px 14px;" ng-show="postJob_form.$invalid">
+  <label style="display:block;color:#b94a48;">Bạn vui lòng nhập đầy đủ thông tin</label>
+</div>
+
+<div class="form-group" style="padding:0px 14px 0px 0px;">
+  <input type="submit" id="submit" name="submitJob" class="btn btn-success btn-lg pull-right" value="Đăng tìm gia sư" ng-disabled="postJob_form.$invalid" ng-model="submitJob"/>
+</div>
+</form>
+</div>
+</div>
+<div  class="col-sm-6 col-md-6">
+
+
+</div>
+</div>
+</div>

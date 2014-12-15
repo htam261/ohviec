@@ -1,0 +1,39 @@
+<div class="container form-horizontal" style="width: 300px;">
+
+	<h1>Dang viec lam</h1>
+	<div class="form-group">
+    <label for="email">Tieu de :</label>
+    <input type="text" ng-model="title" class="form-control" placeholder="Nhap vao tieu de">
+  </div>
+	<div class="form-group">
+    <label for="pwd">Mo ta cong viec :</label>
+    <textarea class="form-control" ng-model="jobDescription" rows="3"></textarea>
+  </div>
+  <div class="form-group">
+    <label for="email">Thoi gian lam viec :</label>
+    <input type="text" ng-model="timeDescription" class="form-control" placeholder="Nhap vao thoi gian lam viec">
+  </div>
+  <div class="form-group">
+    <label for="email">Dia chi :</label>
+    <input type="text" ng-model="address" class="form-control" placeholder="Nhap vao dia chi">
+  </div>
+  <div class="form-group">
+    <label for="email">Luong thoa thuan :</label>
+    <input type="text" ng-model="salary" class="form-control" placeholder="Nhap vao luong">
+  </div>
+  <div class="form-group">
+    <label for="email">Tinh :</label>
+    <input type="text" ng-model="province" class="form-control" placeholder="Nhap vao noi lam viec">
+  </div>
+  <div class="form-group">
+    <label for="email">Nghanh :</label>
+    <input type="text" ng-model="profession" class="form-control" placeholder="Nhap vao nganh">
+  </div>
+  <div class="form-group">
+    <label for="email">Thoi gian :</label>
+    <input type="text" ng-model="expiryTime" class="form-control" placeholder="Nhap vao thoi gian">
+  </div>    
+	<button class="btn btn-default" ng-click='dangviec()'>Dang viec</button>&nbsp;&nbsp;
+	<button class="btn btn-default" ng-click='huybo()'>Huy bo</button>
+	 <span>{{result}}</span>
+</div>

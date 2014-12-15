@@ -1,0 +1,42 @@
+<div>
+ 	<nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">Oh viec website</a>
+        </div>
+        <div>
+          <ul class="nav navbar-nav">
+            <li><a ui-sref="Trangchu">Trang chu</a></li>
+            <li><a ui-sref="tim-viec">Nguoi tim viec</a></li>
+            <li><a ui-sref="dangviec">Viec tim nguoi</a></li>
+            <li><a ui-sref="thongtin">Thong tin</a></li>
+          </ul>
+           <ul class="nav navbar-nav navbar-right">
+            <li><a ui-sref="dang-ky" ng-show = "signup"><span class="glyphicon glyphicon-user" ng-show = "signup"></span> Dang ky</a></li>
+            <li><a ui-sref="dang-nhap" ui-sefl ng-show = "signup"><span class="glyphicon glyphicon-log-in" ng-show = "signup"></span> Dang nhap</a></li>
+            <li class="dropdown navbar-right" ng-show="showUser">             
+                <img class="btn dropdown-toggle img-circle" style="background-color: black; width: 50px; height: 40px; border-radius: 20px; margin-top: 5px;" id="menu1" data-toggle="dropdown" src="img/abc.png"><a href="#" style="display:inline;">{{currentUser.fullname}}</a>
+                <span class="caret"></span></img>
+              <ul class="dropdown-menu" role="menu" aria-labelledby="menu1" style="b">
+              <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Tai khoan</a></li>
+              <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Thong tin ca nhan</a></li>
+              <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Tim viec</a></li>
+              <li role="presentation" class="divider"></li>
+              <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Dang xuat</a></li>
+              </ul>
+            </li>
+          </ul>
+           <div 
+      </div>
+        </div>
+      </div>
+    </nav></div>
+    <div class="container" style="padding-top: 55px; background-color: #eee;">
+    	<span ng-model="loginInfo"></span>
+    	<div ui-view></div> 
+
+    	<div> 
+    		<div ui-view="bodyContent"></div>
+    	</div>
+    </div>
+ </div>

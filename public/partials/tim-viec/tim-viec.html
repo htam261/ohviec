@@ -1,0 +1,23 @@
+<div ng-init="loadViec()">
+    <div class="content-viec" ng-repeat="viec in timviec">
+	   <hidden field ng-model="viec.user.IDJob" />
+        <h1>{{viec.user.title}}</h1>
+        <p>{{viec.user.jobDescription}}<br />
+            {{viec.user.timeDescription}}<br />
+            {{viec.user.address}}<br />
+            {{viec.user.salary}}<br />
+            {{viec.user.expiryTime}}<br />
+            {{viec.user.viewkey}}<br />
+            {{viec.user.province}}<br />
+            {{viec.user.profession}}</p>
+            <p>comment here</p>
+        <div>
+            <div  ng-show="commentEnabled" style="width: 300px;" ng-repeat="comment in viec.comments"> 
+                <img src="abc.png" alt="{{viec.comment.email}}" style="width: 20px; height: 20px;"/>&nbsp; &nbsp;
+                {{comment.contain}} + {{comment.IDJob}} 
+            <input type="text" ng-model="contain" style="width: 200px;" class="form-control" placeholder="Nhap vao nhan xet">
+            </div>
+        </div>
+
+    </div> 
+</div>

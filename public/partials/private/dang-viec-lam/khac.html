@@ -1,0 +1,213 @@
+<!-- <div class="container" ng-show="authending"> 
+  <div class="jumbotron" style="text-align:center;border-radius:0px;">
+    <i class="fa fa-5x fa-spinner fa-spin"></i>
+    <h3>Đang tải . . .</h3>
+  </div>
+</div>  --><!-- Hiển thị loading khi đang kiểm tra -->
+<div class="container"> <!-- Không hiện khi đang kiểm tra đăng nhập -->
+  <div class="row">
+    <div class="col-sm-6 col-md-6">
+      <div class="well"> 
+       <form class="form-horizontal" novalidate name="postJob_form" ng-submit="postJob()">
+         <!--  <h4>Đăng việc làm bán thời gian</h4> -->
+         <div class="form-group" style="padding:0px 14px 0px 14px;margin-top:10px;">
+          <input ng-model="title" name="title" type="text" placeholder="Tiêu đề việc làm" class="form-control input-md" required ng-trim="true" >
+          <div class="error" ng-show="postJob_form.title.$dirty && postJob_form.title.$invalid">
+            <small class="error" ng-show="postJob_form.title.$error.required">
+              Bạn hãy nhập đủ tiêu đề.
+            </small>
+          </div>
+        </div>
+
+        <div class="form-group" style="padding:0px 14px 0px 14px;">
+          <textarea  placeholder="Mô tả công việc" class="form-control" id="jobDescription" ng-model="jobDescription" name="jobDescription" rows="5" required ng-trim="true">{{jobDescription}}</textarea>
+          <div class="error" 
+          ng-show="postJob_form.jobDescription.$dirty && postJob_form.jobDescription.$invalid">
+          <small class="error" 
+          ng-show="postJob_form.jobDescription.$error.required">
+          Bạn hãy nhập mô tả công việc.
+        </small>
+    <!--     <small class="error" 
+        ng-show="postJob_form.jobDescription.$error.minlength">
+        Mô tả ít nhất 10 ký tự
+      </small> -->
+    </div>
+  </div>
+  <div class="form-group" style="padding:0px 14px 0px 14px;">
+    <textarea  placeholder="Mô tả thời gian" class="form-control" id="timeDescription" ng-model="timeDescription" name="timeDescription" rows="2" ng-trim="true" required>{{timeDescription}}</textarea>
+    <div class="error" 
+    ng-show="postJob_form.timeDescription.$dirty && postJob_form.timeDescription.$invalid">
+    <small class="error" 
+    ng-show="postJob_form.timeDescription.$error.required">
+    Bạn hãy nhập mô tả thời gian.
+  </small>
+
+</div>
+</div>
+<div class="form-group" style="padding:0px 14px 0px 14px;">
+  <input ng-model="adress" name="adress" type="text" placeholder="Địa chỉ, liên hệ làm việc" class="form-control input-md" required ng-trim="true" >
+  <div class="error" ng-show="postJob_form.adress.$dirty && postJob_form.adress.$invalid">
+    <small class="error" ng-show="postJob_form.adress.$error.required">
+      Bạn hãy nhập địa chỉ, liên hệ làm việc.
+    </small>
+  </div>
+</div>
+<!--   <div class="form-group" style="padding:0px 14px 0px 14px;font-size:12px;">
+    <div id="timeToDo">
+      <strong> {{hours}} </strong> giờ/ngày
+      <div class="hours" ui-slider min="1" max="24" ng-model="hours" style="margin-top:5px;"></div>
+    </div>
+  </div> -->
+
+  <div class="form-group" style="padding:0px 14px 0px 14px;font-size:12px;">
+    <div>
+      <label class="radio-inline" for="radios-01">
+        <input type="radio" name="salaryType" id="radios-01" value="salaryHour" ng-model="salaryType" ng-change="salaryTypeChange(salaryType)">
+        Lương theo giờ
+      </label> 
+      <label class="radio-inline" for="radios-11">
+        <input type="radio" name="salaryType" id="radios-11" value="salaryDay" ng-model="salaryType" ng-change="salaryTypeChange(salaryType)">
+        Lương theo ngày
+      </label>
+      <label class="radio-inline" for="radios-111">
+        <input type="radio" name="salaryType" id="radios-111" value="salaryMonth" ng-model="salaryType" ng-change="salaryTypeChange(salaryType)">
+        Lương theo tháng
+      </label>
+      <label class="radio-inline" for="radios-1112">
+        <input type="radio" name="salaryType" id="radios-1112" value="salaryNegotiated" ng-model="salaryType" ng-change="salaryTypeChange(salaryType)">
+        Thỏa thuận
+      </label>
+
+    </div>
+    <div style="margin-top:5px;" ng-show="salarySlider">
+      <strong> {{newSalary}}</strong>
+      <div class="hours" ui-slider min="{{salaryMin}}" max="{{salaryMax}}" step="{{salaryStep}}" ng-model="salary" style="margin-top:5px;border-radius:0px;"></div>
+    </div>
+  </div>
+  <div class="form-group" style="padding:0px 14px 0px 14px;">
+    <select ui-select2 id="province" ng-model="province" data-placeholder="Chọn khu vực làm việc" style="width:100%;" ng-required="true" ng-change="validateProfessProvinces('kv')">
+      <option value=""></option>
+      <option ng-repeat="province in provinces| orderBy:['priority','name']" value="{{province.id}}">{{province.name}}</option>
+    </select>
+    <div class="error" ng-show="provinceErrorr">
+      Bạn phải chọn khu vực
+    </div>
+  </div>
+    <div class="form-group" style="padding:0px 14px 0px 14px;">
+    <select ui-select2 id="profession" ng-model="profession" data-placeholder="Chọn lĩnh vực" style="width:100%;" ng-required="true" ng-change="validateProfessProvinces('lv')">
+      <option value=""></option>
+      <option ng-repeat="profession in professions| orderBy:['priority','professionName']" value="{{profession.id}}">{{profession.professionName}}</option>
+    </select>
+    <div class="error" ng-show="provinceError">
+      Bạn phải chọn lĩnh vực
+    </div>
+  </div>
+  <div class="form-group" style="padding:0px 14px 0px 14px;">
+    <p class="input-group">
+     <!--/^(([0-2]?\d{1})|([3][0,1]{1}))\/[0,1]?\d{1}\/(([1]{1}[9]{1}[9]{1}\d{1})|([2-9]{1}\d{3}))$/-->
+     <input placeholder="Hạn nhận việc" type="text" class="form-control" datepicker-popup="{{format}}" ng-model="expri" is-open="opened" min="minDate" max="'27/01/2020'" datepicker-options="dateOptions" name="exp" date-disabled="disabled(date, mode)" required close-text="Đóng" readonly='readonly' ng-change="expValidate(expri)" show-weeks="false" />
+     <span class="input-group-btn">
+      <button class="btn btn-primary" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+    </span>
+  </p>
+</div>
+<div class="form-group" style="padding:0px 14px 0px 14px;" ng-show="postJob_form.$invalid">
+  <label style="display:block;color:#b94a48;">Bạn vui lòng nhập đầy đủ thông tin</label>
+</div>
+
+<div class="form-group" style="padding:0px 14px 0px 0px;">
+  <button type="submit" id="submit" name="submitJob" class="btn btn-success btn-lg pull-right" ng-disabled="postJob_form.$invalid || dangDang" ng-model="submitJob"> ĐĂNG VIỆC LÀM<i class="fa fa-spinner fa-spin" ng-show="dangDang"></i></button>
+</div>
+</form>
+</div>
+</div>
+<div  class="col-sm-6 col-md-6">
+  <div class="alert alert-info alert-dismissable">
+  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+  <strong>Việc làm bán thời gian của bạn sẽ được hiển thị như bên dưới khi bạn điền thông tin</strong> 
+</div>
+<!-- <div class="well" ng-show="province ||postJob_form.title.$valid|| profession || expri||postJob_form.timeDescription.$valid || postJob_form.jobDescription.$valid || postJob_form.adress.$valid">
+      <h1 class="title-post-detail" ng-show="postJob_form.title.$valid"><span class="post-tag"></span>{{title}}</h1>
+      <hr class="seperate-post-detail" ng-show="postJob_form.title.$valid" />
+        <ul class="list-relation-top">
+          <li>
+            <span class="relation"><a href=""><i class="fa fa-user"></i>Đăng bởi: {{currentUser.fullname}}</a></span>
+          </li> 
+          <li ng-show="province">
+            <span class="relation"><a href=""><i class="fa fa-map-marker"></i>tại {{newProvince}}</a></span>
+          </li>
+          <li ng-show="profession">
+            <span class="relation"><a href=""><i class="fa fa-folder"></i>Lĩnh vực: {{newProfession}}</a></span>
+          </li>
+          <li ng-show="expri">
+            <span class="relation"><a href=""><i class="fa fa-calendar"></i>Ngày hết hạn: {{newExpri}}</a></span>
+          </li>
+          <li ng-show="salary">
+            <span class="relation"><a href=""><i class="fa fa-usd"></i><strong>Lương: {{newSalary}}</strong></a></span>
+          </li>
+        </ul>
+      <div class="box box-description" ng-show="postJob_form.timeDescription.$valid || postJob_form.jobDescription.$valid || postJob_form.adress.$valid">
+        
+          <p ng-show="postJob_form.jobDescription.$valid">
+           {{jobDescription}}
+          </p>          
+          <p ng-show="postJob_form.timeDescription.$valid">
+            <strong>Thời gian: </strong>{{timeDescription}}
+          </p>
+          <p ng-show="postJob_form.adress.$valid">
+            <strong>Liên hệ: </strong>{{adress}}
+          </p>
+        
+      </div>
+</div> -->
+<!-- ======================== -->
+    <div class="panel panel-default" ng-show="province ||postJob_form.title.$valid|| profession || expri||postJob_form.timeDescription.$valid || postJob_form.jobDescription.$valid || postJob_form.adress.$valid">
+    <div class="x-panel-heading">
+    </div>
+    <div class="panel-body">
+      <h3 class="post-title"><a href="#/viec-lam/{{item.linkTitle}}/{{item.id}}" >{{title|limitTo: 200}} <span ng-show="title.length>200">...</span></a> <br/>
+      </h3>
+      <div class="post-content">
+        <div >
+          <img class="post-img" ng-src="{{currentUser.avatar}}" alt="bootsnipp"
+          />
+          <h1 class="user-name"> <a  href="#/nguoi-dung/{{item.userId}}">{{currentUser.fullname}}</a></h1>
+          <ul class="list-relation-top">
+            <li>
+              <span class="relation"><a href=""><i class="fa fa-clock-o"></i> {{newExpri}}</a></span>
+            </li>
+            <li>
+              <span class="relation"><a href=""><i class="fa fa-map-marker"></i> {{newProvince}}</a></span>
+            </li>
+            <li>
+              <span class="relation"><a href=""><i class="fa fa-folder"></i> {{newProfession}}</a></span>
+            </li>
+            <li>
+              <span class="relation"><a href=""><i class="fa fa-usd"></i> lương {{newSalary}}</a></span>
+            </li>
+           <!--  <li><span class="relation"><a href=""><i class="fa fa-eye"></i> {{item.view}} <span ng-hide="item.view">0</span> Lượt xem</a></span></li>
+            <li><span class="relation"><a  data-toggle="collapse"  href="#form-comment"><i class="fa fa-comments"></i></a>
+              <a data-toggle="collapse"  href="" data-target="#{{item.id}}">{{item.comments.length}} Bình luận</a> </span></li> -->
+            </ul>
+
+          </div>
+          <div class="clearfix"></div>
+          <p ng-show="postJob_form.jobDescription.$valid">
+           {{jobDescription}}
+          </p>          
+          <p ng-show="postJob_form.timeDescription.$valid">
+            <strong>Thời gian: </strong>{{timeDescription}}
+          </p>
+          <p ng-show="postJob_form.adress.$valid">
+            <strong>Liên hệ: </strong>{{adress}}
+          </p>
+
+        </div>
+        <div class="clearfix"></div>
+
+      </div>
+    </div>
+<!-- ======================== -->
+</div>
+</div>
+</div>
